@@ -1,11 +1,23 @@
 import React from 'react';
 import BannerImg from '../assets/img/header-img.svg';
 import ProfileImg from '../assets/img/profile.png';
+import Particles from 'react-particles';
+import type { Engine } from 'tsparticles-engine';
+import { loadStarsPreset } from 'tsparticles-preset-stars';
 import { TypeAnimation } from 'react-type-animation';
 
 const Banner = () => {
+  const initParticle = async (engine: Engine): Promise<void> => {
+    await loadStarsPreset(engine);
+  };
+  const optionsParticle = {
+    preset: 'stars',
+  };
+
   return (
     <section className="pb-6 pt-48 lg:pb-12 lg:pt-50 h-screen">
+      <Particles options={optionsParticle} init={initParticle} className="relative -z-50" />
+
       <div className="container mx-auto">
         <div className="flex flex-col justify-center items-center lg:flex-row">
           {/* Info Banner */}

@@ -5,11 +5,12 @@ import Nav from './Nav';
 
 interface Props {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
+  scrollNav: object | null;
 }
 
 const Header = (props: Props) => {
   const [navFixed, setNavFixed] = useState(false);
-  const { setActive } = props;
+  const { setActive, scrollNav } = props;
 
   useEffect(() => {
     const handleScroll = () => {

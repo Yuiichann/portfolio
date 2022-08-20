@@ -1,6 +1,6 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Particles from 'react-particles';
 import type { Engine } from 'tsparticles-engine';
 import { loadStarsPreset } from 'tsparticles-preset-stars';
@@ -13,13 +13,11 @@ import Skills from './components/Skills';
 
 const App = () => {
   const [isActiveMenu, setIsActiveMenu] = useState(false);
+  const projectRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
+  const skillsRef = useRef<HTMLDivElement | null>(null);
 
-  const initParticle = async (engine: Engine): Promise<void> => {
-    await loadStarsPreset(engine);
-  };
-  const optionsParticle = {
-    preset: 'stars',
-  };
+  const [scrollNav, setScrollNav] = useState<object | null>(null);
 
   useEffect(() => {
     AOS.init({
@@ -29,12 +27,17 @@ const App = () => {
 
   return (
     <div>
-      <Particles options={optionsParticle} init={initParticle} className="relative -z-50" />
-      <Header setActive={setIsActiveMenu} />
+      <Header setActive={setIsActiveMenu} scrollNav={scrollNav} />
       <Banner />
-      <About />
-      <Skills />
-      <Project />
+      <div ref={aboutRef}>
+        <About />
+      </div>
+      <div ref={skillsRef}>
+        <Skills />
+      </div>
+      <div ref={projectRef}>
+        <Project />
+      </div>
 
       <NavMobile isActive={isActiveMenu} setActive={setIsActiveMenu} />
     </div>
