@@ -1,13 +1,17 @@
 import React from 'react';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { Scroll } from './Header';
 
-interface Props {
+interface Props extends Scroll {
   isActive: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const NavMobile = (props: Props) => {
-  const { isActive, setActive } = props;
+  const { isActive, setActive, onScroll } = props;
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   return (
     <div
@@ -20,30 +24,44 @@ const NavMobile = (props: Props) => {
       </div>
 
       <ul className="flex flex-col justify-center items-center h-full">
-        <li className="text-xl font-bold hover:text-pink-600 transition-all">
-          <a href="#" className="block px-12 py-4">
-            Home
-          </a>
+        <li
+          className="text-xl font-bold hover:text-pink-600 transition-all"
+          onClick={() => {
+            scrollToTop();
+            setActive(false);
+          }}
+        >
+          <a className="block px-12 py-4 cursor-pointer">Home</a>
+        </li>
+        <li
+          className="text-xl font-bold hover:text-pink-600 transition-all"
+          onClick={() => {
+            onScroll.scrollToAbout();
+            setActive(false);
+          }}
+        >
+          <a className="block px-12 py-4 cursor-pointer">About</a>
+        </li>
+        <li
+          className="text-xl font-bold hover:text-pink-600 transition-all"
+          onClick={() => {
+            onScroll.scrollToSkill();
+            setActive(false);
+          }}
+        >
+          <a className="block px-12 py-4 cursor-pointer">Skills</a>
+        </li>
+        <li
+          className="text-xl font-bold hover:text-pink-600 transition-all"
+          onClick={() => {
+            onScroll.scrollToProject();
+            setActive(false);
+          }}
+        >
+          <a className="block px-12 py-4 cursor-pointer">Projects</a>
         </li>
         <li className="text-xl font-bold hover:text-pink-600 transition-all">
-          <a href="#" className="block px-12 py-4">
-            About
-          </a>
-        </li>
-        <li className="text-xl font-bold hover:text-pink-600 transition-all">
-          <a href="#" className="block px-12 py-4">
-            Skills
-          </a>
-        </li>
-        <li className="text-xl font-bold hover:text-pink-600 transition-all">
-          <a href="#" className="block px-12 py-4">
-            Projects
-          </a>
-        </li>
-        <li className="text-xl font-bold hover:text-pink-600 transition-all">
-          <a href="#" className="block px-12 py-4">
-            Contact
-          </a>
+          <a className="block px-12 py-4 cursor-pointer">Contact</a>
         </li>
       </ul>
     </div>

@@ -1,11 +1,10 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect, useRef, useState } from 'react';
-import Particles from 'react-particles';
-import type { Engine } from 'tsparticles-engine';
-import { loadStarsPreset } from 'tsparticles-preset-stars';
 import About from './components/About';
 import Banner from './components/Banner';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import NavMobile from './components/NavMobile';
 import Project from './components/Project';
@@ -17,17 +16,28 @@ const App = () => {
   const aboutRef = useRef<HTMLDivElement | null>(null);
   const skillsRef = useRef<HTMLDivElement | null>(null);
 
-  const [scrollNav, setScrollNav] = useState<object | null>(null);
-
   useEffect(() => {
     AOS.init({
       duration: 1500,
     });
   }, []);
 
+  const scrollToSkill = () => {
+    skillsRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  const scrollToAbout = () => {
+    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  const scrollToProject = () => {
+    projectRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div>
-      <Header setActive={setIsActiveMenu} scrollNav={scrollNav} />
+      <Header
+        setActive={setIsActiveMenu}
+        onScroll={{ scrollToSkill, scrollToAbout, scrollToProject }}
+      />
       <Banner />
       <div ref={aboutRef}>
         <About />
@@ -38,8 +48,17 @@ const App = () => {
       <div ref={projectRef}>
         <Project />
       </div>
+      <div>
+        <Contact />
+      </div>
 
-      <NavMobile isActive={isActiveMenu} setActive={setIsActiveMenu} />
+      <Footer />
+
+      <NavMobile
+        isActive={isActiveMenu}
+        setActive={setIsActiveMenu}
+        onScroll={{ scrollToSkill, scrollToAbout, scrollToProject }}
+      />
     </div>
   );
 };
